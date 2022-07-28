@@ -129,10 +129,10 @@ def respond():
     else:
         try:
            
-            textcompile = "this is working uat"
+            #textcompile = "this is working uat"
 
             # clear the message we got from any non alphabets
-            ##text = re.sub(r"\W", "_", text)
+            textcompile = re.sub(r"\W", "_", text)
             # create the api link for the avatar based on http://avatars.adorable.io/
             ##url = "https://api.adorable.io/avatars/285/{}.png".format(text.strip())
             # reply with a photo to the name the user sent,
