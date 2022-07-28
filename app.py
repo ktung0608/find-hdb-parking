@@ -128,50 +128,7 @@ def respond():
 
     else:
         try:
-            df = get_hdb_carpark()
-            merged_df = convert_merge(df)
-            lat, lon = get_destination_lat_lon(238164)
-            
-            df2 = pd.DataFrame()
-
-            for row in merged_df.iterrows():
-                t_dic = {}
-                dist = distance_between(float(lat), float(lon), float(row[1]['lat']), float(row[1]['lon']))
-
-                t_dic['car_park_no'] = [row[1]['car_park_no']]
-                t_dic['lat'] = [row[1]['lat']]
-                t_dic['lon'] = [row[1]['lon']]
-                t_dic['dist'] = [dist]
-                
-                df_new_row = pd.DataFrame(t_dic)
-                df2 = pd.concat([df2, df_new_row])
-
-            merged_df = merged_df.merge(df2, on='car_park_no', how='left')
-
-            merged_df = merged_df.sort_values(by='dist', ascending=True)
-
-            avail = get_cp_availability()
-
-            ref = pd.DataFrame()
-
-            for cp in merged_df.iterrows():
-                
-                temp_df = avail[(avail['carpark_number'] == cp[1]['car_park_no'])]
-                ref = ref.append(temp_df)
-
-            final_df = ref.merge(merged_df, left_on='carpark_number', right_on='car_park_no')
-
-            counter = 0
-            for i in final_df.iterrows():
-                print(i[1]['carpark_number'])
-                print(i[1]['address'])
-                print(i[1]['lots_available'])
-                print(i[1]['update_datetime'])
-                print("==========")
-                counter = counter + 1
-                if counter == 5:
-                    break
-            
+           
             textcompile = "this is working uat"
 
             # clear the message we got from any non alphabets
@@ -180,7 +137,7 @@ def respond():
             ##url = "https://api.adorable.io/avatars/285/{}.png".format(text.strip())
             # reply with a photo to the name the user sent,
             # note that you can send photos by url and telegram will fetch it for you
-            bot.sendPhoto(chat_id=chat_id, text=textcompile, reply_to_message_id=msg_id)
+            bot.sendMessage(chat_id=chat_id, text=textcompile, reply_to_message_id=msg_id)
         except Exception:
             # if things went wrong
             bot.sendMessage(chat_id=chat_id, text="Exception error. Please ensure you have entered a valid 6 digit postal code", reply_to_message_id=msg_id)
