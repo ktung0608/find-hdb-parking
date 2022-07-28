@@ -120,7 +120,7 @@ def respond():
     if text == "/start":
         # print the welcoming message
         bot_welcome = """
-        Welcome to HDB carpark locator. Please enter your destination postal code and it will fetch you the 5 nearest HDB parking and number of available slots
+        welcome to test bot
         """
         # send the welcoming message
         bot.sendMessage(chat_id=chat_id, text=bot_welcome, reply_to_message_id=msg_id)
@@ -132,12 +132,12 @@ def respond():
             #textcompile = "this is working uat"
 
             # clear the message we got from any non alphabets
-            textcompile = re.sub(r"\W", "_", text)
+            text = re.sub(r"\W", "_", text)
             # create the api link for the avatar based on http://avatars.adorable.io/
-            ##url = "https://api.adorable.io/avatars/285/{}.png".format(text.strip())
+            url = "https://api.adorable.io/avatars/285/{}.png".format(text.strip())
             # reply with a photo to the name the user sent,
             # note that you can send photos by url and telegram will fetch it for you
-            bot.sendMessage(chat_id=chat_id, text=textcompile, reply_to_message_id=msg_id)
+            bot.sendMessage(chat_id=chat_id, photo=url, reply_to_message_id=msg_id)
         except Exception:
             # if things went wrong
             bot.sendMessage(chat_id=chat_id, text="Exception error. Please ensure you have entered a valid 6 digit postal code", reply_to_message_id=msg_id)
