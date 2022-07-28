@@ -142,7 +142,7 @@ def respond():
             # if things went wrong
             bot.sendMessage(chat_id=chat_id, text="Exception error. Please ensure you have entered a valid 6 digit postal code", reply_to_message_id=msg_id)
 
-        return 'ok'
+    return 'ok'
 
 
 @app.route('/setwebhook', methods=['GET', 'POST'])
