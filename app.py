@@ -135,6 +135,8 @@ def respond():
             merged_df = convert_merge(df)
             lat, lon = get_destination_lat_lon(text)
 
+            bot.sendMessage(chat_id=chat_id, text="Locating carparks...", reply_to_message_id=msg_id)
+
             df2 = pd.DataFrame()
 
             for row in merged_df.iterrows():
@@ -149,7 +151,7 @@ def respond():
                 df_new_row = pd.DataFrame(t_dic)
                 df2 = pd.concat([df2, df_new_row])
 
-            bot.sendMessage(chat_id=chat_id, text="Locating carparks...", reply_to_message_id=msg_id)
+            
 
             merged_df = merged_df.merge(df2, on='car_park_no', how='left')
             merged_df = merged_df.sort_values(by='dist', ascending=True)
