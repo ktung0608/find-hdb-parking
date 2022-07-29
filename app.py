@@ -120,7 +120,9 @@ def respond():
     if text == "/start":
         # print the welcoming message
         bot_welcome = """
-        welcome to test bot
+        Welcome to Find-HDB-Parking bot. This bot will help you find the nearest HDB parking based on your 6 digit postal code
+        The bot fetches data directly from data.gov.sg, thus please do allow up to a minute to process your requests. 
+        Please enter your 6 digit postal code : 
         """
         # send the welcoming message
         bot.sendMessage(chat_id=chat_id, text=bot_welcome, reply_to_message_id=msg_id)
@@ -131,7 +133,7 @@ def respond():
            
             df = get_hdb_carpark()
             merged_df = convert_merge(df)
-            lat, lon = get_destination_lat_lon(int(text))
+            lat, lon = get_destination_lat_lon(text)
 
             df2 = pd.DataFrame()
 
@@ -147,8 +149,12 @@ def respond():
                 df_new_row = pd.DataFrame(t_dic)
                 df2 = pd.concat([df2, df_new_row])
 
+            bot.sendMessage(chat_id=chat_id, text="Locating carparks...", reply_to_message_id=msg_id)
+
             merged_df = merged_df.merge(df2, on='car_park_no', how='left')
             merged_df = merged_df.sort_values(by='dist', ascending=True)
+
+            bot.sendMessage(chat_id=chat_id, text="Checking for availability now...", reply_to_message_id=msg_id)
 
             avail = get_cp_availability()
 
