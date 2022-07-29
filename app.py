@@ -183,7 +183,7 @@ def respond():
             ##url = "https://api.adorable.io/avatars/285/{}.png".format(text.strip())
             # reply with a photo to the name the user sent,
             # note that you can send photos by url and telegram will fetch it for you
-            bot.sendPhoto(chat_id=chat_id, text=text_final, reply_to_message_id=msg_id)
+            bot.sendMessage(chat_id=chat_id, text=text_final, reply_to_message_id=msg_id)
         except Exception:
             # if things went wrong
             bot.sendMessage(chat_id=chat_id, text="Exception error. Please ensure you have entered a valid 6 digit postal code", reply_to_message_id=msg_id)
